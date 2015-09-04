@@ -12,6 +12,8 @@ import java.util.Arrays;
 public class TextFileLoader implements FileLoader {
     private static final String[] EMPTY_ARRAY = new String[0];
     private final char [] SENTENCE_TERMINATION = {'.', '?', '!'};
+    private final int SPLIT_LIMIT = 2;
+
     private BufferedReader in;
     private StringBuilder previousLineSentence = new StringBuilder();
 
@@ -34,6 +36,9 @@ public class TextFileLoader implements FileLoader {
                     sentenceToReturn.append(returnFromPreviousRead());
                     return sentenceToReturn.toString().equals("") ? null : sentenceToReturn.toString();
                 }
+                if (line.equals("")) {
+                    return "";
+                }
                 String [] sentenceList = splitLineAroundLineEnd(line);
 
                 // Read from the stream till we get complete line
@@ -52,12 +57,14 @@ public class TextFileLoader implements FileLoader {
                             break;
                         }
                     }
-                }
-                for (int i = 1; i < sentenceList.length; i++) {
-                    previousLineSentence.append(sentenceList[i] + " ");
+                } else {
+                    for (int i = 1; i < sentenceList.length; i++) {
+                        previousLineSentence.append(sentenceList[i] + " ");
+                    }
+                    sentenceToReturn.append(sentenceList[0]);
                 }
 
-                System.out.println(sentenceToReturn.toString());
+//                System.out.println(sentenceToReturn.toString());
                 return sentenceToReturn.toString();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -74,7 +81,7 @@ public class TextFileLoader implements FileLoader {
         previousLineSentence.setLength(0);
 
         for (int i = 1; i < sentenceList.length; i++) {
-            previousLineSentence.append(sentenceList[i]);
+            previousLineSentence.append(sentenceList[i].trim());
         }
 
         return sentenceList[0];
@@ -86,6 +93,6 @@ public class TextFileLoader implements FileLoader {
         }
         String regex = new String(SENTENCE_TERMINATION);
         regex = "[" + regex + "]";
-        return sentence.split(regex);
+        return sentence.split(regex, SPLIT_LIMIT);
     }
 }

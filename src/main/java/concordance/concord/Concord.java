@@ -56,10 +56,11 @@ public class Concord {
             sb.append(sentenceList.size());
             sb.append(",");
             for (long sentenceNumber : sentenceList) {
+                sb.append(" ");
                 sb.append(sentenceNumber);
-                sb.append(", ");
+                sb.append(",");
             }
-            sb.delete(sb.length() - 2, sb.length() - 1);
+            sb.delete(sb.length() - 1, sb.length());
             sb.append("}\n");
         }
         return sb.toString();
