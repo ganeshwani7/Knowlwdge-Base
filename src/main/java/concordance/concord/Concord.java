@@ -32,8 +32,13 @@ public class Concord {
             String [] tokens = Tokeniser.getTokens(sentence);
             for (String token : tokens) {
                 List<Long> sentenceList = concordMap.get(token);
-                sentenceList = sentenceList == null ? new ArrayList<Long>() : sentenceList;
-                sentenceList.add(sentenceCount);
+                if (sentenceList == null) {
+                    sentenceList = new ArrayList<Long>();
+                    sentenceList.add(sentenceCount);
+                    concordMap.put(token, sentenceList);
+                } else {
+                    sentenceList.add(sentenceCount);
+                }
             }
             ++sentenceCount;
         }
@@ -43,10 +48,14 @@ public class Concord {
     private String createAwesomeConcordance() {
         StringBuilder sb = new StringBuilder();
         for (String key : concordMap.keySet()) {
+            List<Long> sentenceList;
+            sentenceList = concordMap.get(key);
             sb.append(key);
             sb.append("\t\t");
             sb.append("{");
-            for (long sentenceNumber : concordMap.get(key)) {
+            sb.append(sentenceList.size());
+            sb.append(",");
+            for (long sentenceNumber : sentenceList) {
                 sb.append(sentenceNumber);
                 sb.append(", ");
             }

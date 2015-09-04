@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Created by ganeshwani on 9/4/15.
@@ -38,7 +39,9 @@ public class TextFileLoader implements FileLoader {
                 // Read from the stream till we get complete line
                 if (sentenceList.length == 1) {
                     while (sentenceList.length == 1) {
-                        sentenceToReturn.append(sentenceList);
+                        for (String sentence : sentenceList) {
+                            sentenceToReturn.append(sentence + " ");
+                        }
 
                         line = in.readLine();
                         if (line == null) {
@@ -51,7 +54,7 @@ public class TextFileLoader implements FileLoader {
                     }
                 }
                 for (int i = 1; i < sentenceList.length; i++) {
-                    previousLineSentence.append(sentenceList[i]);
+                    previousLineSentence.append(sentenceList[i] + " ");
                 }
 
                 System.out.println(sentenceToReturn.toString());
