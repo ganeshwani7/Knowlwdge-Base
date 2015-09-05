@@ -4,9 +4,36 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
     <groupId>org.ganesh.concord</groupId>
     <artifactId>concordance</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.ganesh.concord</groupId>
+                <artifactId>concordance</artifactId>
+                <version>1.0-SNAPSHOT</version>
+
+                <configuration>
+                    <mainClass>
+                        concordance.main.ConcordanceMain
+                    </mainClass>
+                    <arguments>
+                        input.txt
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <!--<plugin>-->
+    <!--</plugin>-->
+    <!--<configuration>-->
+        <!--<mainClass>-->
+            <!--concordance.main.ConcordanceMain-->
+        <!--</mainClass>-->
+    <!--</configuration>-->
 
     <properties>
         <lombokVersion>1.16.6</lombokVersion>
