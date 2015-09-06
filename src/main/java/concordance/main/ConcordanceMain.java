@@ -25,6 +25,8 @@ public class ConcordanceMain {
             fileLoader = FileLoaderFactory.getParser(fileName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            System.out.println("File Not found");
+            System.exit(1);
         }
 
         if (fileLoader == null) {
