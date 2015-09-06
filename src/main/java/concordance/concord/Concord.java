@@ -29,8 +29,15 @@ public class Concord {
             if (sentence == null) {
                 break;
             }
+            // If sentence is blank don't parse
+            if (sentence.matches("^\\s*$")) {
+                continue;
+            }
             String [] tokens = Tokeniser.getTokens(sentence);
             for (String token : tokens) {
+                if (token.equals("")) {
+                    continue;
+                }
                 List<Long> sentenceList = concordMap.get(token);
                 if (sentenceList == null) {
                     sentenceList = new ArrayList<Long>();
@@ -42,10 +49,10 @@ public class Concord {
             }
             ++sentenceCount;
         }
-        return createAwesomeConcordance();
+        return printAwesomeConcordance();
     }
 
-    private String createAwesomeConcordance() {
+    private String printAwesomeConcordance() {
         StringBuilder sb = new StringBuilder();
         for (String key : concordMap.keySet()) {
             List<Long> sentenceList;
